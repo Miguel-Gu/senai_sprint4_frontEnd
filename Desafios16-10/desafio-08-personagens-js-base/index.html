@@ -44,46 +44,54 @@
             editora: "Marvel"
         }];
 
-        console.log("1. Liste somente os personagens cuja editora seja Marvel");
-        let personagensMarvel = personagens.filter((personagem) => personagem.editora === "Marvel");
+        // 1.   Liste somente os personagens cuja editora seja Marvel;
+        function buscaPersonagensMarvel(personagens){
+            if(personagens.editora == "Marvel")
+                return true
+            else
+                return false
+        }
+        var personagensMarvel = personagens.filter(buscaPersonagensMarvel)
         console.log(personagensMarvel)
 
-        console.log("2.	Liste somente os personagem cuja data de Aparição seja superior a 1950");
-        let personagem1950Maior = personagens.filter((personagem) => personagem.dataAparicao > 1950)
-        console.log(personagem1950Maior)
+        // 2.	Liste somente os personagem cuja data de Aparição seja superior a 1950;
+        function buscaPersonagens1950(personagens){
+            if(personagens.dataAparicao > 1950)
+                return true
+            else
+                return false
+        }
+        var personagens1950 = personagens.filter(buscaPersonagens1950)
+        console.log(personagens1950)
 
-        console.log("3.	Some a idade de todos os personagens");
+        // 3.	Some a idade de todos os personagens;
+        const total = personagens.reduce((a,b) => a + (2021-b.dataAparicao), 0)
+        console.log(total)
         
-        var idade;
-        var idadesSoma = personagens.map(p => idade = 2021 - p.dataAparicao).reduce((total, item) => total + item, 0)
-        console.log(idadesSoma)
+        // 4.	Traga somente os nomes dos personagens;
+        var listaNomes = personagens.map( function(item) {
+            return item.nome
+        })
+        console.log(listaNomes)
 
-        console.log("4.	Traga somente os nomes dos personagens");
-        let nomePersos = personagens.map(p => p.nome);
-        console.log(nomePersos)
 
-        console.log("5.	Adicione mais um personagem chamado Capitã Marvel, data de Aparição 1977 e editora Marvel");
-        let novoPerso = {
+        // 5.	Adicione mais um personagem chamado Capitã Marvel, data de Aparição 1977 e editora Marvel;
+        personagens.push({
             nome: "Capitã Marvel",
             dataAparicao: 1977,
             editora: "Marvel"
-        }
-        personagens.push(novoPerso)
+        })
         console.log(personagens)
 
-        console.log("6. Mostre a quantidade de personagens da Marvel que possuem na lista");
+        // 6. Mostre a quantidade de personagens da Marvel que possuem na lista
+        console.log(personagensMarvel.length)
 
-        let quantidadePerso = personagens.map(p => p.editora === "Marvel").reduce((total, item) => total + item, 0)
-        console.log(quantidadePerso)
-
-
-        console.log("7. Mostre o nome e a idade dos personagens")
-
-        let novaLista = personagens.map(function (item) {
-            
-            return `O personagem ${item.nome}, a idade é ${2021 - item.dataAparicao}`
+        // 7. Mostre o nome e a idade dos personagens
+        var listaIdade = personagens.map( function(item) {
+            return 2021-item.dataAparicao
         })
-        console.log(novaLista)
+        console.log(listaNomes) 
+        console.log(listaIdade)
     </script>
 
 </body>

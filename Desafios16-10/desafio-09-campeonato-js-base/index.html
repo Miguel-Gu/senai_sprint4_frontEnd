@@ -62,36 +62,49 @@
             golscontra:33
         }];
 
-        console.log('1.	Lista somente os times cujas vitórias seja maior ou igual que 20');
-        var listaTime20 = times.filter(t => t.vitorias >= 20)
-        console.log(listaTime20)
+        // 1.	Lista somente os times cujas vitórias seja maior ou igual que 20
+        function buscaTimesVitoria20(times){
+            if(times.vitorias >= 20)
+                return true
+            else    
+                return false
+        }
+        var timesVitorias20 = times.filter(buscaTimesVitoria20)
+        console.log(timesVitorias20)
 
-        console.log('2. Traga somente os nomes dos times');
-        var nomeTimes = times.map(t => t.nome)
-        console.log(nomeTimes)
+        // 2.	Traga somente os nomes dos times;
+        var listaNomes = times.map( function(item) {
+            return item.nome
+        })
+        console.log(listaNomes)
 
-        console.log("3.	Adicione mais um time chamado Wolves, vitorias 12, empates 8, derrotas 10, gols proprios 38, golscontras 36");
-        var novoTime = {
+        // 3.	Adicione mais um time chamado Wolves, vitorias 12, empates 8, derrotas 10, gols proprios 38, golscontras 36;
+        times.push({
             nome: "Wolves",
             vitorias: 12,
             empates: 8,
             derrotas: 10,
             golsproprio: 38,
             golscontra: 36
-        }
-        times.push(novoTime)
+        })
         console.log(times)
 
-        console.log("4. Mostre o nome e a quantidade de jogos(vitorias, empates e derrotas), quantidade de vitorias, empates e derrotas de um time")
-        var timeExibido = times.map(function(item) {
-            return `O time ${item.nome}; Quantidade de jogos: ${item.vitorias + item.empates + item.derrotas}, Vitorias: ${item.vitorias}, Derrotas: ${item.derrotas}, Empates: ${item.empates}`
-        })
-        console.log(timeExibido)
+        // 4. Mostre o nome e a quantidade de jogos(vitorias, empates e derrotas), quantidade de vitorias, empates e derrotas de um time
+        function MostarTime(times, n)
+        {
+            console.log(
+                "Nome:", times[n].nome, 
+                "Quantidade de jogos:", times[n].vitorias + times[n].empates + times[n].derrotas, 
+                "Vitórias:", times[n].vitorias, 
+                "Empates:", times[n].empates, 
+                "Derrotas", times[n].derrotas
+            )
+        }
+        MostarTime(times, 2)
 
-        console.log("5.	Informe a quantidade de jogos do campeonato");
-        let quantJogos;
-        var somaJogos = times.map(j => quantJogos = j.vitorias + j.empates + j.derrotas).reduce((total, item) => total + item,0)
-        console.log(somaJogos)
+        // 5.	Informe a quantidade de jogos do campeonato;
+        const totalJogos = times.reduce((a,b) => a + (b.vitorias + b.derrotas + b.empates), 0)
+        console.log(totalJogos)
     </script>
 
 </body>
