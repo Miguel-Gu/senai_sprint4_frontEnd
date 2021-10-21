@@ -1,134 +1,81 @@
-import react from 'react';
+import React from 'react';
 import './App.css';
 
+// Define um componente funcional DataFormatada que retorn o subtítulo com o valo da hora formatado
 function DataFormatada(props) {
-  return <h2>Horario atual : {props.date.toLocaleTimeString()}</h2>
+  return <h2>Horário Atual: {props.date.toLocaleTimeString()}</h2>
 }
 
 //Componente de classe
-class Clock extends react.Component {
-  constructor(props) {
+//Define a classe Clock que será chamada dentro da renderização do componente App
+class Clock extends React.Component{
+  constructor(props){
     super(props);
     this.state = {
-      //Define a propiedade date pagdn a hora e data atual
-      date: new Date()
-    }
+      // Define a propriedade date pegando a data e hora atual
+      date : new Date()
+    };
   }
 
-  //Ciclo de vida  que ocorre quando o componente clock é inserido na arvore DOM, ou seja , ciclo de vida de nascimento
-  componentDidMount() {
-    this.TimerID = setInterval(() => {
-      this.thick()
-    }, 1000)
-  };
-
-  // Ciclo de vida que ocorre quando o componente Clock é removido da arvore DOM 
-  componentWillUnmount() {
-    clearInterval(this.TimerID)
-
-  };
-
-  thick() {
+  // Define a função thick() que atualiza a propriedade date com a data e hora atual
+  // toda vez que a função for invocada
+  thick(){
     this.setState({
-      date: new Date()
+      date : new Date()
     })
-  };
+  }
 
-
-  Pausar(){
+  pause(){
     this.componentWillUnmount()
-    console.log('Relógio ' + this.TimerID + ' está pausado')
-  };
+    console.log('Relógio ' + this.timerID + ' pausado')
+  }
 
-  Retomar(){
-    this.TimerID = setInterval(() => {
+  resume(){
+    this.timerID = setInterval( () => {
       this.thick()
     }, 1000)
-    console.log('Relógio retomado')
-    console.log('Agora sou o relogio '+ this.TimerID)
+    console.log('Relógio retomado!')
+    console.log('Agora eu sou o relógio ' + this.timerID)
   }
-  
- 
 
-  //Renderiza o conteudo do retorno para a tela 
-  render() {
-    return (
+  // Ciclo de vida que ocorre quando o componente Clock é inserio na árvore DOM
+  // ou seja, o ciclo de vida de montagem/nascimento
+  componentDidMount(){
+    this.timerID = setInterval( () => {
+      this.thick()
+    }, 1000)
+
+    //Exibe no console o ID de cada relógio
+    console.log('Eu sou o relógio ' + this.timerID);
+  };
+
+  // Ciclo de vida que ocorre quando o componente Clock é removido da árvore DOM
+  // ou seja, o ciclo de vida da desmontagem/morte
+  // Quando isso ocorre, a função clearInterval limpa o relógio criado pela função
+  // setInterval
+  componentWillUnmount(){
+    clearInterval(this.timerID);
+  };
+
+  // Renderia o conteúdo do retorno na tela
+  render(){
+    return(
       <div>
         <h1>Relógio</h1>
         <DataFormatada date={this.state.date} />
-        <button className="bnt_1" onClick={() => this.Pausar()}>Pausar</button>
-        <button className="bnt_2" onClick={() => this.Retomar()}>Retomar</button>
-        
+        <button onClick={() => this.pause()}>Pausar relógio</button>
+        <button onClick={() => this.resume()}>Retomar relógio</button>
       </div>
     )
   }
 }
 
-//Componente de classe
-class Clock1 extends react.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      //Define a propiedade date pagdn a hora e data atual
-      date: new Date()
-    }
-  }
-
-  //Ciclo de vida  que ocorre quando o componente clock é inserido na arvore DOM, ou seja , ciclo de vida de nascimento
-  componentDidMount() {
-    this.TimerID = setInterval(() => {
-      this.thick()
-    }, 1000)
-  };
-
-  // Ciclo de vida que ocorre quando o componente Clock é removido da arvore DOM 
-  componentWillUnmount() {
-    clearInterval(this.TimerID)
-
-  };
-
-  thick() {
-    this.setState({
-      date: new Date()
-    })
-  };
-
-  Pausar(){
-    this.componentWillUnmount()
-    console.log('Relógio ' + this.TimerID + ' está pausado')
-  }
-
-  Retomar(){
-    this.TimerID = setInterval(() => {
-      this.thick()
-    }, 1000)
-    console.log('Relógio retomado')
-    console.log('Agora sou o relogio '+ this.TimerID)
-  }
-  
- 
-
-  //Renderiza o conteudo do retorno para a tela 
-  render() {
-    return (
-      <div>
-        <h1>Relógio infinito</h1>
-        <DataFormatada date={this.state.date} />
-        
-        
-      </div>
-    )
-  }
-}
-
-
-// Componente princiapl
+//Componente funcional
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <Clock />
-        <Clock1 />
       </header>
     </div>
   );
